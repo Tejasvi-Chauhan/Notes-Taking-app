@@ -16,10 +16,9 @@ export const HomePage =()=>{
     useEffect(()=>{
         const fetchNotes=async()=>{
             try{
-                const res =await api.get(`/api/notes`);
+                const res =await api.get("/api/notes");
                  console.log("API response:", res.data);
                 setNotes (res.data);
-                setLoading(false);
                 setIsRateLimited(false);
             }catch(err){
                 if(err.response && err.response.status===429){

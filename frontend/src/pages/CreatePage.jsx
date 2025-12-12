@@ -23,7 +23,7 @@ export const CreatePage =()=>{
        }
          setLoading (true);
             try{
-                await api.post(`/api/notes`,{
+                await api.post("/api/notes",{
                     title,
                     content,
                 });
