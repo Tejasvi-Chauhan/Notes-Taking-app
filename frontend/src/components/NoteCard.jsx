@@ -22,6 +22,7 @@ export const NoteCard =({note,setNotes})=>{
             setNotes((prevNotes)=>prevNotes.filter((note)=>note._id !== id));
         }
         catch(err){
+                console.error("Delete Error:", err.response?.data || err.message);
             toast.error("Failed to delete note");
         }
     }
