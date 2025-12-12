@@ -8,9 +8,6 @@ import api from "../lib/Api.js";
 import { useNavigate } from "react-router";
 
 
-
-
-
 export const CreatePage =()=>{
 
     const [title, setTitle]=useState("");

@@ -2,8 +2,9 @@ import {Link} from "react-router";
 import React from "react";
 import {Card} from "daisyui";
 import { PenSquareIcon, Trash } from "lucide-react";
-import axios from "axios";
+
 import toast from "react-hot-toast";
+import api from "../lib/Api.js";
 
 
 export const NoteCard =({note,setNotes})=>{
@@ -16,7 +17,7 @@ export const NoteCard =({note,setNotes})=>{
         if(window.confirm("Are you sure you want to delete this note?")){
         
         try{
-            await axios.delete(`http://localhost:8080/api/notes/${id}`);
+            await api.delete(`/api/notes/${id}`);
             toast.success("Note deleted successfully");
             // Optionally, you might want to refresh the notes list here
             setNotes((prevNotes)=>prevNotes.filter((note)=>note._id !== id));

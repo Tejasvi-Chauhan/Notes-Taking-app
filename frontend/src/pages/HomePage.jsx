@@ -17,6 +17,7 @@ export const HomePage =()=>{
         const fetchNotes=async()=>{
             try{
                 const res =await api.get(`/api/notes`);
+                 console.log("API response:", res.data);
                 setNotes (res.data);
                 setLoading(false);
                 setIsRateLimited(false);
@@ -56,7 +57,9 @@ export const HomePage =()=>{
 
                 {notes.length>0 && !isRateLimited && (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {notes.map((note)=>(
+                        {
+                        
+                        notes.map((note)=>(
                             <Link to={`/note/${note._id}`} key={note._id} >
 
                                <NoteCard key={note._id} note={note} setNotes={setNotes}/> 
