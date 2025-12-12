@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from "react-router";
 import { ArrowLeftIcon } from "lucide-react";
-import axios from 'axios';
+
 import { LoaderIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
-const API=import.meta.env.VITE_API_URL || "http://localhost:8080/api";
-
+import api from "../lib/Api.js";
 
 
 export const NoteDetailPage=()=>{
@@ -19,7 +18,7 @@ export const NoteDetailPage=()=>{
 
         const fetchNote=async()=>{
             try{
-                const res=await axios.get(`${API}/notes/${id}`);
+                const res=await api.get(`/api/notes/${id}`);
                 setNote(res.data);
             }catch(err){
                 console.log("Failed to fetch note", err);
@@ -39,7 +38,7 @@ export const NoteDetailPage=()=>{
         }
         setSaving (true);
         try{
-            await axios.put(`${API}/notes/${id}`,{
+            await api.put(`/api/notes/${id}`,{
                 title:note.title,
                 content:note.content,
 

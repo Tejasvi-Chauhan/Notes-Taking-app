@@ -1,12 +1,12 @@
 import React from 'react';
 import {Header} from "../components/Navbar.jsx";
 import {useEffect} from "react";
-import axios from 'axios';
+
 import toast from 'react-hot-toast';
 import { Link } from 'react-router';
 import { RateLimiterUI } from '../components/RateLimiterUI.jsx';
 import { NoteCard } from '../components/NoteCard.jsx';
-const API=import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+import api from '../lib/Api.js';
 
 export const HomePage =()=>{
     const [isRateLimited, setIsRateLimited]=React.useState(false);
@@ -16,7 +16,7 @@ export const HomePage =()=>{
     useEffect(()=>{
         const fetchNotes=async()=>{
             try{
-                const res =await axios.get(`${API}/notes`);
+                const res =await api.get(`/api/notes`);
                 setNotes (res.data);
                 setLoading(false);
                 setIsRateLimited(false);

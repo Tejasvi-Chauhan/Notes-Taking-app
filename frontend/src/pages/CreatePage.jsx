@@ -3,11 +3,11 @@ import { useState } from "react"
 import { Link } from "react-router";
 import { Header } from "../components/Navbar.jsx";
 import toast from "react-hot-toast";
+import api from "../lib/Api.js";
 
 import { useNavigate } from "react-router";
-import axios from "axios";
 
-const API=import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+
 
 
 
@@ -26,7 +26,7 @@ export const CreatePage =()=>{
        }
          setLoading (true);
             try{
-                await axios.post(`${API}/notes`,{
+                await api.post(`/api/notes`,{
                     title,
                     content,
                 });
