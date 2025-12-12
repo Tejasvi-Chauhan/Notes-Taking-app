@@ -5,6 +5,8 @@ import axios from 'axios';
 import { LoaderIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
+const API=import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+
 
 
 export const NoteDetailPage=()=>{
@@ -17,7 +19,7 @@ export const NoteDetailPage=()=>{
 
         const fetchNote=async()=>{
             try{
-                const res=await axios.get(`http://localhost:8080/api/notes/${id}`);
+                const res=await axios.get(`${API}/notes/${id}`);
                 setNote(res.data);
             }catch(err){
                 console.log("Failed to fetch note", err);
@@ -37,7 +39,7 @@ export const NoteDetailPage=()=>{
         }
         setSaving (true);
         try{
-            await axios.put(`http://localhost:8080/api/notes/${id}`,{
+            await axios.put(`${API}/notes/${id}`,{
                 title:note.title,
                 content:note.content,
 
@@ -103,11 +105,6 @@ export const NoteDetailPage=()=>{
                             
                     </div>
                     </div>
-
-
-                
-             
-
         </div>
         </div>
         </div>
