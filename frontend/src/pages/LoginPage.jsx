@@ -24,7 +24,7 @@ const LoginPage = () => {
       return;
     }
     try {
-      await api.post("/auth/login", { email, password },{ withCredentials: true });
+      await api.post("/auth/login", { email, password });
       toast.success("Login succesfully");
       navigate("/"); //  HomePage
     } catch {

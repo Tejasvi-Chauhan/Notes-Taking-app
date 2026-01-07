@@ -17,7 +17,7 @@ router.get("/check-auth", authMiddleware, (req, res) => {
 });
 
 router.post("/logout", authMiddleware, async (req, res) => {
-   const user = req.user; // auth middleware se aata hai
+  const user = req.user; // auth middleware se aata hai
 
   const time = new Date().toLocaleString("en-IN", {
     dateStyle: "medium",
@@ -31,15 +31,15 @@ router.post("/logout", authMiddleware, async (req, res) => {
  Email: ${user.email}
  Time: ${time}`
   );
-res.clearCookie("token", {
-  httpOnly: true,
-  secure: true,        
-  sameSite: "none",    
-});
 
-   
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/", // 
+  });
+
   res.status(200).json({ message: "Logged out successfully" });
 });
-
 
 export default router;
