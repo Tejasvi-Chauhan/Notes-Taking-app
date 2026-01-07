@@ -14,10 +14,11 @@ import testRoutes from "./routes/testRoutes.js";
 const app = express();
 
 
+console.log("CLIENT_ORIGIN =", process.env.CLIENT_ORIGIN);
 
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN ,
+    origin: "https://notes-taking-app-nine-rouge.vercel.app",
     credentials: true,
   })
 );
@@ -30,11 +31,13 @@ const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(rateLimiter);
+
 app.use("/api/notes", notesRoutes);
 app.use("/auth", authRoutes);
 app.use("/api", testRoutes);
 
-app.use(rateLimiter);
+
 
 connectDB().then(()=>{
     app.listen(PORT, () => {
