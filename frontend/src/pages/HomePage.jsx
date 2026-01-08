@@ -20,7 +20,7 @@ export const HomePage = () => {
       try {
         const res = await api.get("/api/notes");
         console.log("API response:", res.data);
-        setNotes(Array.isArray(res.data.notes) ? res.data.notes : []);
+        setNotes(Array.isArray(res.data) ? res.data : []);
 
         setIsRateLimited(false);
       } catch (err) {
