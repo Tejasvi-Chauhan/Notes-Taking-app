@@ -16,12 +16,15 @@ const app = express();
 
 console.log("CLIENT_ORIGIN =", process.env.CLIENT_ORIGIN);
 
-app.use(
-  cors({
-    origin: "https://notes-taking-app-nine-rouge.vercel.app",
-    credentials: true,
-  })
-);
+app.set("trust proxy", 1);
+
+const corsOptions = {
+  origin: "https://notes-taking-app-nine-rouge.vercel.app",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); 
 
 
 
