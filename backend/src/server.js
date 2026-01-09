@@ -14,12 +14,12 @@ import testRoutes from "./routes/testRoutes.js";
 const app = express();
 
 
-console.log("CLIENT_ORIGIN =", process.env.CLIENT_ORIGIN);
+//  FOR COOKIE (VERY IMPORTANT)
 
 app.set("trust proxy", 1);
 
 const corsOptions = {
-  origin: "https://notes-taking-app-nine-rouge.vercel.app",
+origin: process.env.CLIENT_ORIGIN, //frontend ka url
   credentials: true,
 };
 
