@@ -9,24 +9,20 @@ import rateLimiter from "./middleware/rateLimter.js";
 import authRoutes from "./routes/authRoutes.js";
 import testRoutes from "./routes/testRoutes.js";
 
-
-
 const app = express();
-
 
 //  FOR COOKIE (VERY IMPORTANT)
 
 app.set("trust proxy", 1);
 
+const allowedOrigin =
+  process.env.CLIENT_ORIGIN || "https://notes-taking-app-nine-rouge.vercel.app";
 const corsOptions = {
-origin: process.env.CLIENT_ORIGIN, //frontend ka url
+  origin: allowedOrigin,
   credentials: true,
 };
 
 app.use(cors(corsOptions));
-
-
-
 
 app.use(express.json());
 const PORT = process.env.PORT || 8080;
@@ -40,16 +36,12 @@ app.use("/api/notes", notesRoutes);
 app.use("/auth", authRoutes);
 app.use("/api", testRoutes);
 
-
-
-connectDB().then(()=>{
+connectDB()
+  .then(() => {
     app.listen(PORT, () => {
-     console.log(`App is listening on port ${PORT}`);
-});
-
-})
-.catch((err)=>{
+      console.log(`App is listening on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
     console.error("Failed to connect to the database", err);
-});
-
-
+  });
