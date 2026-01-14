@@ -3,11 +3,12 @@ import { useState } from "react";
 import { PenSquareIcon, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 import api from "../lib/Api.js";
+import { useNavigate } from "react-router";
 
 export const NoteCard = ({ note, setNotes }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
-
+  const navigator = useNavigate();
   // open modal
   const openDeleteModal = (id) => {
     setNoteToDelete(id);
@@ -20,10 +21,8 @@ export const NoteCard = ({ note, setNotes }) => {
       await api.delete(`/api/notes/${noteToDelete}`);
 
       toast.success("Note deleted successfully");
-
-      setNotes((prevNotes) =>
-        prevNotes.filter((n) => n._id !== noteToDelete)
-      );
+      setNotes((prevNotes) => prevNotes.filter((n) => n._id !== noteToDelete));
+      navigator("/");
     } catch (err) {
       console.error("Delete Error:", err.response?.data || err.message);
       toast.error("Failed to delete note");
@@ -38,7 +37,9 @@ export const NoteCard = ({ note, setNotes }) => {
       {/* NOTE CARD */}
       <Link to={`/note/${note._id}`}>
         <div className="border border-gray-300 rounded-lg p-4 shadow hover:shadow-lg transition bg-white h-full flex flex-col justify-between">
-          <h2 className="text-lg font-semibold text-gray-800 truncate">{note.title}</h2>
+          <h2 className="text-lg font-semibold text-gray-800 truncate">
+            {note.title}
+          </h2>
 
           <p className="text-gray-700">
             {note.content.substring(0, 100)}
@@ -73,9 +74,7 @@ export const NoteCard = ({ note, setNotes }) => {
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
           <div className="bg-gray-900 rounded-xl p-6 w-[90%] max-w-sm shadow-lg">
-            <h3 className="text-lg font-semibold text-white">
-              Delete Note?
-            </h3>
+            <h3 className="text-lg font-semibold text-white">Delete Note?</h3>
 
             <p className="text-sm text-gray-400 mt-2">
               This action cannot be undone.
