@@ -16,11 +16,13 @@ const LoginPage = () => {
     setLoading(true);
     if (!email || !password) {
       toast.error("All fields are required");
+      setLoading(false);
       return;
     }
 
     if (!email.includes("@")) {
       toast.error("Please enter a valid email address");
+      setLoading(false);
       return;
     }
     try {
@@ -29,6 +31,8 @@ const LoginPage = () => {
       navigate("/"); //  HomePage
     } catch {
       toast.error("Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
