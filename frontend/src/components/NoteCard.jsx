@@ -47,23 +47,30 @@ export const NoteCard = ({ note, setNotes }) => {
             {new Date(note.createdAt).toLocaleDateString()}
           </span>
 
-          <div className="flex items-center gap-2">
-            {/* EDIT ICON */}
-            <Link to={`/note/${note._id}`}>
-              <PenSquareIcon className="size-4 cursor-pointer" />
-            </Link>
+          <div className="flex items-center gap-3">
+  {/* EDIT ICON */}
+  <Link
+    to={`/note/${note._id}`}
+    onClick={(e) => e.stopPropagation()}
+    className="p-1 hover:bg-gray-100 rounded"
+  >
+    <PenSquareIcon className="size-4 text-gray-600" />
+  </Link>
 
-            {/* DELETE ICON */}
-            <button
-              className="btn btn-ghost btn-xs text-error"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowDeleteModal(true);
-              }}
-            >
-              <Trash className="size-4" />
-            </button>
-          </div>
+  {/* DELETE ICON */}
+  <button
+    type="button"
+    onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setShowDeleteModal(true);
+    }}
+    className="p-1 hover:bg-red-100 rounded"
+  >
+    <Trash className="size-4 text-red-500" />
+  </button>
+</div>
+
         </div>
       </div>
 
