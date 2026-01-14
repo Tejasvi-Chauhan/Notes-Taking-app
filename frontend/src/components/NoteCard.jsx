@@ -21,8 +21,9 @@ export const NoteCard = ({ note, setNotes }) => {
       await api.delete(`/api/notes/${noteToDelete}`);
 
       toast.success("Note deleted successfully");
-      setNotes((prevNotes) => prevNotes.filter((n) => n._id !== noteToDelete));
       navigator("/");
+      setNotes((prevNotes) => prevNotes.filter((n) => n._id !== noteToDelete));
+      
     } catch (err) {
       console.error("Delete Error:", err.response?.data || err.message);
       toast.error("Failed to delete note");
